@@ -31,17 +31,19 @@ function collectTraceNodes(attributeMarker) {
   const ATTRIBUTE_REGEX = new RegExp('\\s' + attributeMarker + '="[a-z]{3}"');
   // const ATTRIBUTE_REGEX = /\slhtemp="[a-z]{3}"/;
   for (const element of markedElements) {
+    const metricTag = element.getAttribute(attributeMarker) || '';
+    element.removeAttribute(attributeMarker);
     // @ts-ignore - put into scope via stringification
-    const htmlSnippet = getOuterHTMLSnippet(element); // eslint-disable-line no-undef
     traceNodes.push({
-      metricTag: element.getAttribute(attributeMarker) || '',
+      metricTag,
       // @ts-ignore - put into scope via stringification
       nodePath: getNodePath(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification
       selector: getNodeSelector(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification
       nodeLabel: getNodeLabel(element), // eslint-disable-line no-undef
-      snippet: htmlSnippet.replace(ATTRIBUTE_REGEX, ''),
+      // @ts-ignore - put into scope via stringification
+      snippet: getOuterHTMLSnippet(element), // eslint-disable-line no-undef
     });
   }
   return traceNodes;
@@ -98,12 +100,7 @@ class TraceNodes extends Gatherer {
       return (${collectTraceNodes})('${LH_ATTRIBUTE_MARKER}');
     })()`;
 
-    const traceNodes = await driver.evaluateAsync(expression, {useIsolation: true});
-    await driver.sendCommand('DOM.removeAttribute', {
-      nodeId: translatedIds.nodeIds[0],
-      name: LH_ATTRIBUTE_MARKER,
-    });
-    return traceNodes;
+    return driver.evaluateAsync(expression, {useIsolation: true});
   }
 }
 
