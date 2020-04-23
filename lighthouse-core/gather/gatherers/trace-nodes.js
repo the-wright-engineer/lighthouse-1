@@ -18,21 +18,23 @@ const LH_ATTRIBUTE_MARKER = 'lhtemp';
  */
 
 /**
+ * @param {string} attributeMarker
  * @return {LH.Artifacts['TraceNodes']}
  */
 /* istanbul ignore next */
-function collectTraceNodes() {
+function collectTraceNodes(attributeMarker) {
   /** @type {Array<HTMLElement>} */
   // @ts-ignore - put into scope via stringification
-  const markedElements = getElementsInDocument('[lhtemp]'); // eslint-disable-line no-undef
+  const markedElements = getElementsInDocument('[' + attributeMarker + ']'); // eslint-disable-line no-undef
   /** @type {LH.Artifacts['TraceNodes']} */
   const traceNodes = [];
-  const ATTRIBUTE_REGEX = /\slhtemp="[a-z]{3}"/;
+  const ATTRIBUTE_REGEX = new RegExp('\\s' + attributeMarker + '="[a-z]{3}"');
+  // const ATTRIBUTE_REGEX = /\slhtemp="[a-z]{3}"/;
   for (const element of markedElements) {
     // @ts-ignore - put into scope via stringification
     const htmlSnippet = getOuterHTMLSnippet(element); // eslint-disable-line no-undef
     traceNodes.push({
-      metricTag: element.getAttribute('lhtemp') || '',
+      metricTag: element.getAttribute(attributeMarker) || '',
       // @ts-ignore - put into scope via stringification
       nodePath: getNodePath(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification
@@ -93,7 +95,7 @@ class TraceNodes extends Gatherer {
       ${pageFunctions.getNodeLabelString};
       ${pageFunctions.getOuterHTMLSnippetString};
 
-      return (${collectTraceNodes})();
+      return (${collectTraceNodes})('${LH_ATTRIBUTE_MARKER}');
     })()`;
 
     const traceNodes = await driver.evaluateAsync(expression, {useIsolation: true});
