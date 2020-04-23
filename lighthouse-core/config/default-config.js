@@ -415,6 +415,7 @@ const defaultConfig = {
         {id: 'time-to-first-byte', weight: 0, group: 'load-opportunities'},
         {id: 'redirects', weight: 0, group: 'load-opportunities'},
         {id: 'uses-rel-preload', weight: 0, group: 'load-opportunities'},
+        {id: 'uses-http2', weight: 0, group: 'load-opportunities'},
         {id: 'efficient-animated-content', weight: 0, group: 'load-opportunities'},
         {id: 'total-byte-weight', weight: 0, group: 'diagnostics'},
         {id: 'uses-long-cache-ttl', weight: 0, group: 'diagnostics'},
@@ -507,7 +508,6 @@ const defaultConfig = {
       auditRefs: [
         {id: 'appcache-manifest', weight: 1},
         {id: 'is-on-https', weight: 1},
-        {id: 'uses-http2', weight: 1},
         {id: 'uses-passive-event-listeners', weight: 1},
         {id: 'no-document-write', weight: 1},
         {id: 'external-anchors-use-rel-noopener', weight: 1},
