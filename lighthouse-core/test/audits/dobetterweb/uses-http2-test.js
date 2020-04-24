@@ -58,7 +58,7 @@ describe('Resources are fetched over http/2', () => {
       // Because it doesn't make sense to have half H2 half not to the same origin.
       const url = record.url;
       if (url.includes('pwa.rocks')) record.url = url.replace('pwa.rocks', 'pwa2.rocks');
-      record.fetchedViaServiceWorker = true
+      record.fetchedViaServiceWorker = true;
       delete record.parsedURL;
     });
 

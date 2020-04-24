@@ -48,7 +48,7 @@ const STATIC_RESOURCE_TYPES = new Set([
   NetworkRequest.TYPES.Stylesheet,
   NetworkRequest.TYPES.Script,
   NetworkRequest.TYPES.Media,
-])
+]);
 
 class UsesHTTP2Audit extends Audit {
   /**
