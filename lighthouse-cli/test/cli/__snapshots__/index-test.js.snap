@@ -688,10 +688,6 @@ Object {
           "weight": 1,
         },
         Object {
-          "id": "uses-http2",
-          "weight": 1,
-        },
-        Object {
           "id": "uses-passive-event-listeners",
           "weight": 1,
         },
@@ -866,6 +862,11 @@ Object {
         Object {
           "group": "load-opportunities",
           "id": "uses-rel-preload",
+          "weight": 0,
+        },
+        Object {
+          "group": "load-opportunities",
+          "id": "uses-http2",
           "weight": 0,
         },
         Object {
