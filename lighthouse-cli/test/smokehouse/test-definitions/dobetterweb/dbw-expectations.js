@@ -248,7 +248,7 @@ const expectations = [
           },
         },
         'uses-http2': {
-          score: 0,
+          score: '<1',
           details: {
             items: {
               length: '>15',

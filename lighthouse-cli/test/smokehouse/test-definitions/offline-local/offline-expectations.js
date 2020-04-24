@@ -21,7 +21,7 @@ module.exports = [
           score: 1,
         },
         'uses-http2': {
-          score: 0,
+          score: '<1',
         },
         'external-anchors-use-rel-noopener': {
           score: 1,
