@@ -16,19 +16,19 @@ const UIStrings = {
     '[Learn More](https://web.dev/lighthouse-largest-contentful-paint)',
   /** Label for the audit identifying if an element was found. */
   displayValue: '1 element found',
-  /** Label for the Element column in the LCP Node event data table. */
+  /** Label for the Element column in the Largest Contenful Paint Node event data table. */
   columnHeader: 'Element',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
-class LCPNode extends Audit {
+class LargestContentfulPaintNode extends Audit {
   /**
    * @return {LH.Audit.Meta}
    */
   static get meta() {
     return {
-      id: 'lcp-node',
+      id: 'largest-contentful-paint-node',
       title: str_(UIStrings.title),
       description: str_(UIStrings.description),
       scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
@@ -62,17 +62,29 @@ class LCPNode extends Audit {
    * @return {LH.Audit.Product}
    */
   static audit(artifacts) {
-    const lcpNodeData = this.getNodeData(artifacts.TraceNodes);
+    const lcpNode = artifacts.TraceNodes.find(node => node.metricTag === 'lcp');
+    let lcpNodeDetails = [];
+    if (lcpNode) {
+      lcpNodeDetails.push({
+        node: /** @type {LH.Audit.Details.NodeValue} */ ({
+          type: 'node',
+          path: lcpNode.nodePath,
+          selector: lcpNode.selector,
+          nodeLabel: lcpNode.nodeLabel,
+          snippet: lcpNode.snippet,
+        }),
+      });
+    }
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
       {key: 'node', itemType: 'node', text: str_(UIStrings.columnHeader)},
     ];
 
-    const details = Audit.makeTableDetails(headings, lcpNodeData);
+    const details = Audit.makeTableDetails(headings, lcpNodeDetails);
 
     let displayValue;
-    if (lcpNodeData.length) {
+    if (lcpNodeDetails.length) {
       displayValue = str_(UIStrings.displayValue);
     }
 
@@ -84,5 +96,5 @@ class LCPNode extends Audit {
   }
 }
 
-module.exports = LCPNode;
+module.exports = LargestContentfulPaintNode;
 module.exports.UIStrings = UIStrings;

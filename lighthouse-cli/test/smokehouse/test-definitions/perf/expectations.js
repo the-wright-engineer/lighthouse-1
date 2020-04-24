@@ -136,7 +136,7 @@ module.exports = [
             ],
           },
         },
-        'lcp-node': {
+        'largest-contentful-paint-node': {
           score: null,
           displayValue: '1 element found',
           details: {
@@ -145,6 +145,7 @@ module.exports = [
                 node: {
                   type: 'node',
                   nodeLabel: 'img',
+                  path: '2,HTML,1,BODY,0,IMG',
                 },
               },
             ],
