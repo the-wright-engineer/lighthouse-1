@@ -13,7 +13,7 @@ describe('Performance: largest-contentful-paint-node audit', () => {
   it('correctly surfaces LCP node', async () => {
     const artifacts = {
       TraceNodes: [{
-        metricTag: 'lcp',
+        metricTag: 'largest-contentful-paint',
         nodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
         selector: 'div.l-header > div.chorus-emc__content',
         nodeLabel: 'My Test Label',

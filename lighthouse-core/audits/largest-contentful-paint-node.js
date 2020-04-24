@@ -37,33 +37,13 @@ class LargestContentfulPaintNode extends Audit {
   }
 
   /**
-   * @param {LH.Artifacts.TraceNode[]} traceNodes
-   * @return {LH.Audit.Details.Table['items']}
-   */
-  static getNodeData(traceNodes) {
-    const lcpNode = traceNodes.find(node => node.metricTag === 'lcp');
-    if (!lcpNode) {
-      return [];
-    }
-
-    return [{
-      node: /** @type {LH.Audit.Details.NodeValue} */ ({
-        type: 'node',
-        path: lcpNode.nodePath,
-        selector: lcpNode.selector,
-        nodeLabel: lcpNode.nodeLabel,
-        snippet: lcpNode.snippet,
-      }),
-    }];
-  }
-
-  /**
    * @param {LH.Artifacts} artifacts
    * @return {LH.Audit.Product}
    */
   static audit(artifacts) {
-    const lcpNode = artifacts.TraceNodes.find(node => node.metricTag === 'lcp');
-    let lcpNodeDetails = [];
+    const lcpNode =
+      artifacts.TraceNodes.find(node => node.metricTag === 'largest-contentful-paint');
+    const lcpNodeDetails = [];
     if (lcpNode) {
       lcpNodeDetails.push({
         node: /** @type {LH.Audit.Details.NodeValue} */ ({

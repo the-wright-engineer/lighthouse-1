@@ -28,8 +28,6 @@ function collectTraceNodes(attributeMarker) {
   const markedElements = getElementsInDocument('[' + attributeMarker + ']'); // eslint-disable-line no-undef
   /** @type {LH.Artifacts['TraceNodes']} */
   const traceNodes = [];
-  const ATTRIBUTE_REGEX = new RegExp('\\s' + attributeMarker + '="[a-z]{3}"');
-  // const ATTRIBUTE_REGEX = /\slhtemp="[a-z]{3}"/;
   for (const element of markedElements) {
     const metricTag = element.getAttribute(attributeMarker) || '';
     element.removeAttribute(attributeMarker);
@@ -87,7 +85,7 @@ class TraceNodes extends Gatherer {
     await driver.sendCommand('DOM.setAttributeValue', {
       nodeId: translatedIds.nodeIds[0],
       name: LH_ATTRIBUTE_MARKER,
-      value: 'lcp',
+      value: 'largest-contentful-paint',
     });
 
     const expression = `(() => {
