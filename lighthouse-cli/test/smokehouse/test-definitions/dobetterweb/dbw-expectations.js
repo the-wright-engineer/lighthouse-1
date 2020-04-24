@@ -247,14 +247,6 @@ const expectations = [
             },
           },
         },
-        'uses-http2': {
-          score: '<1',
-          details: {
-            items: {
-              length: '>15',
-            },
-          },
-        },
         'external-anchors-use-rel-noopener': {
           score: 0,
           warnings: [/Unable to determine.*<a target="_blank">/],
