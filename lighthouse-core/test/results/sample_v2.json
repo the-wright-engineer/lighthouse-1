@@ -1716,6 +1716,7 @@
       "description": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
       "score": null,
       "scoreDisplayMode": "informative",
+      "displayValue": "0 elements found",
       "details": {
         "type": "table",
         "headings": [],
@@ -6205,6 +6206,14 @@
       ],
       "lighthouse-core/audits/largest-contentful-paint-node.js | description": [
         "audits[largest-contentful-paint-node].description"
+      ],
+      "lighthouse-core/audits/largest-contentful-paint-node.js | displayValue": [
+        {
+          "values": {
+            "itemCount": 0
+          },
+          "path": "audits[largest-contentful-paint-node].displayValue"
+        }
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"

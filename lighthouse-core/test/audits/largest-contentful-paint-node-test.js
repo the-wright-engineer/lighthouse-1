@@ -37,7 +37,7 @@ describe('Performance: largest-contentful-paint-node audit', () => {
 
     const auditResult = await LargestContentfulPaintNodeAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
-    expect(auditResult.displayValue).toBeUndefined();
+    expect(auditResult.displayValue).toBeDisplayString('0 elements found');
     expect(auditResult.details.items).toHaveLength(0);
   });
 });

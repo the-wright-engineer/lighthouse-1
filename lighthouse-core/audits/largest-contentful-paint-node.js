@@ -14,8 +14,11 @@ const UIStrings = {
   /** Description of a Lighthouse audit that tells the user that the element shown was determined to be the Largest Contentful Paint. */
   description: 'This is the element that was identified as the Largest Contentful Paint. ' +
     '[Learn More](https://web.dev/lighthouse-largest-contentful-paint)',
-  /** Label for the audit identifying if an element was found. */
-  displayValue: '1 element found',
+  /** [ICU Syntax] Label for the audit identifying if an element was found. */
+  displayValue: `{itemCount, plural,
+    =1 {1 element found}
+    other {# elements found}
+    }`,
   /** Label for the Element column in the Largest Contenful Paint Node event data table. */
   columnHeader: 'Element',
 };
@@ -63,10 +66,7 @@ class LargestContentfulPaintNode extends Audit {
 
     const details = Audit.makeTableDetails(headings, lcpNodeDetails);
 
-    let displayValue;
-    if (lcpNodeDetails.length) {
-      displayValue = str_(UIStrings.displayValue);
-    }
+    const displayValue = str_(UIStrings.displayValue, {itemCount: lcpNodeDetails.length});
 
     return {
       score: 1,
