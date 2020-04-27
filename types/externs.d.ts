@@ -310,7 +310,7 @@ declare global {
           cumulative_score?: number;
           nodeId?: number;
           impacted_nodes?: Array<{
-            node_id?: number,
+            node_id: number,
             old_rect?: Array<number>,
             new_rect?: Array<number>,
           }>;
