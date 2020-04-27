@@ -1710,8 +1710,8 @@
         }
       }
     },
-    "lcp-node": {
-      "id": "lcp-node",
+    "largest-contentful-paint-node": {
+      "id": "largest-contentful-paint-node",
       "title": "Largest Contentful Paint element",
       "description": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
       "score": null,
@@ -3890,7 +3890,7 @@
           "group": "diagnostics"
         },
         {
-          "id": "lcp-node",
+          "id": "largest-contentful-paint-node",
           "weight": 0,
           "group": "diagnostics"
         },
@@ -5019,7 +5019,7 @@
       },
       {
         "startTime": 0,
-        "name": "lh:audit:lcp-node",
+        "name": "lh:audit:largest-contentful-paint-node",
         "duration": 100,
         "entryType": "measure"
       },
@@ -6200,11 +6200,11 @@
       "lighthouse-core/audits/third-party-summary.js | columnBlockingTime": [
         "audits[third-party-summary].details.headings[2].text"
       ],
-      "lighthouse-core/audits/lcp-node.js | title": [
-        "audits[lcp-node].title"
+      "lighthouse-core/audits/largest-contentful-paint-node.js | title": [
+        "audits[largest-contentful-paint-node].title"
       ],
-      "lighthouse-core/audits/lcp-node.js | description": [
-        "audits[lcp-node].description"
+      "lighthouse-core/audits/largest-contentful-paint-node.js | description": [
+        "audits[largest-contentful-paint-node].description"
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"

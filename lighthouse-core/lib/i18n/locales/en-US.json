@@ -812,16 +812,16 @@
   "lighthouse-core/audits/is-on-https.js | title": {
     "message": "Uses HTTPS"
   },
-  "lighthouse-core/audits/lcp-node.js | columnHeader": {
+  "lighthouse-core/audits/largest-contentful-paint-node.js | columnHeader": {
     "message": "Element"
   },
-  "lighthouse-core/audits/lcp-node.js | description": {
+  "lighthouse-core/audits/largest-contentful-paint-node.js | description": {
     "message": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)"
   },
-  "lighthouse-core/audits/lcp-node.js | displayValue": {
+  "lighthouse-core/audits/largest-contentful-paint-node.js | displayValue": {
     "message": "1 element found"
   },
-  "lighthouse-core/audits/lcp-node.js | title": {
+  "lighthouse-core/audits/largest-contentful-paint-node.js | title": {
     "message": "Largest Contentful Paint element"
   },
   "lighthouse-core/audits/legacy-javascript.js | description": {
