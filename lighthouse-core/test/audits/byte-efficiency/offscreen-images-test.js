@@ -149,7 +149,7 @@ describe('OffscreenImages audit', () => {
         generateImage({
           size: generateSize(100, 100),
           x: 0,
-          y: 4000,
+          y: 5000,
           networkRecord: networkRecords[1],
           src: url('B'),
         }),
@@ -185,7 +185,7 @@ describe('OffscreenImages audit', () => {
           networkRecord: networkRecords[5],
           src: url('F'),
         }),
-        // Offscreen to the bottom, but within 3 viewports
+        // Offscreen to the bottom but within 3 viewports, should not warn
         generateImage({
           size: generateSize(100, 100),
           x: 0,
@@ -199,7 +199,13 @@ describe('OffscreenImages audit', () => {
     };
 
     const auditResult = await UnusedImages.audit_(artifacts, networkRecords, context);
-    assert.equal(auditResult.items.length, 4);
+    expect(auditResult.items).toMatchObject([
+      {url: url('A')},
+      {url: url('B')},
+      {url: url('C')},
+      {url: url('D')},
+      {url: url('E')},
+    ]);
   });
 
   it('passes images with a specified loading attribute', async () => {
