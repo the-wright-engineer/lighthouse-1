@@ -10,7 +10,7 @@ const LargestContentfulPaintNodeAudit =
 
 /* eslint-env jest */
 describe('Performance: largest-contentful-paint-node audit', () => {
-  it('correctly surfaces LCP node', async () => {
+  it('correctly surfaces the LCP node', async () => {
     const artifacts = {
       TraceNodes: [{
         metricTag: 'largest-contentful-paint',

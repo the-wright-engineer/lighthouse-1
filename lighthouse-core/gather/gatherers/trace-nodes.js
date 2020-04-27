@@ -14,7 +14,7 @@ const LH_ATTRIBUTE_MARKER = 'lhtemp';
 /**
  * @fileoverview
  * This gatherer find the Largest Contentful Paint element identified in the trace. Since the trace only has the nodeId of the element,
- * we temporarily add an attribute so that we can query the dom and grab all of the element's details.
+ * we temporarily add an attribute so that we can identify the element in the DOM.
  */
 
 /**
@@ -76,12 +76,12 @@ class TraceNodes extends Gatherer {
     if (lcpNodeId) {
       backendNodeIds.push(lcpNodeId);
     }
-    // DOM.getDocument is necessary for pushNodesByBackendIdsToFrontend to properly retrieve nodeIds
+    // DOM.getDocument is necessary for pushNodesByBackendIdsToFrontend to properly retrieve nodeIds.
     await driver.sendCommand('DOM.getDocument', {depth: -1, pierce: true});
     const translatedIds = await driver.sendCommand('DOM.pushNodesByBackendIdsToFrontend',
       {backendNodeIds: backendNodeIds});
 
-    // A bit hacky.
+    // Mark the LCP element so we can find it in the page.
     await driver.sendCommand('DOM.setAttributeValue', {
       nodeId: translatedIds.nodeIds[0],
       name: LH_ATTRIBUTE_MARKER,
