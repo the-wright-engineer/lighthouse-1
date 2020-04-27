@@ -19,8 +19,6 @@ const UIStrings = {
     =1 {1 element found}
     other {# elements found}
     }`,
-  /** Label for the Element column in the Largest Contenful Paint Node event data table. */
-  columnHeader: 'Element',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
@@ -61,7 +59,7 @@ class LargestContentfulPaintNode extends Audit {
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'node', itemType: 'node', text: str_(UIStrings.columnHeader)},
+      {key: 'node', itemType: 'node', text: str_(i18n.UIStrings.columnElement)},
     ];
 
     const details = Audit.makeTableDetails(headings, lcpNodeDetails);

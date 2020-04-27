@@ -6664,7 +6664,7 @@
       "lighthouse-core/audits/dobetterweb/dom-size.js | columnStatistic": [
         "audits[dom-size].details.headings[0].text"
       ],
-      "lighthouse-core/audits/dobetterweb/dom-size.js | columnElement": [
+      "lighthouse-core/lib/i18n/i18n.js | columnElement": [
         "audits[dom-size].details.headings[1].text"
       ],
       "lighthouse-core/audits/dobetterweb/dom-size.js | columnValue": [
