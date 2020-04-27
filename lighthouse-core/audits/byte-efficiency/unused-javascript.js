@@ -79,10 +79,7 @@ class UnusedJavaScript extends ByteEfficiencyAudit {
    * @return {Promise<ByteEfficiencyAudit.ByteEfficiencyProduct>}
    */
   static async audit_(artifacts, networkRecords, context) {
-    let bundles;
-    if (artifacts.SourceMaps) {
-      bundles = await JsBundles.request(artifacts, context);
-    }
+    const bundles = artifacts.SourceMaps ? await JsBundles.request(artifacts, context) : [];
     const {bundleSourceUnusedThreshold = IGNORE_BUNDLE_SOURCE_THRESHOLD_IN_BYTES} =
       context.options || {};
 
@@ -90,7 +87,7 @@ class UnusedJavaScript extends ByteEfficiencyAudit {
     for (const [url, scriptCoverages] of Object.entries(artifacts.JsUsage)) {
       const networkRecord = networkRecords.find(record => record.url === url);
       if (!networkRecord) continue;
-      const bundle = bundles && bundles.find(b => b.script.src === url);
+      const bundle = bundles.find(b => b.script.src === url);
       const unusedJsSummary =
         await UnusedJavaScriptSummary.request({url, scriptCoverages, bundle}, context);
 
