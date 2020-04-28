@@ -1716,11 +1716,26 @@
       "description": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
       "score": null,
       "scoreDisplayMode": "informative",
-      "displayValue": "0 elements found",
+      "displayValue": "1 element found",
       "details": {
         "type": "table",
-        "headings": [],
-        "items": []
+        "headings": [
+          {
+            "key": "node",
+            "itemType": "node",
+            "text": "Element"
+          }
+        ],
+        "items": [
+          {
+            "node": {
+              "type": "node",
+              "path": "1,HTML,1,BODY,0,DIV,1,P",
+              "selector": "body > div > p",
+              "nodeLabel": "This domain is for use in illustrative examples in documents. You may use this …"
+            }
+          }
+        ]
       }
     },
     "pwa-cross-browser": {
@@ -6210,10 +6225,14 @@
       "lighthouse-core/audits/largest-contentful-paint-node.js | displayValue": [
         {
           "values": {
-            "itemCount": 0
+            "itemCount": 1
           },
           "path": "audits[largest-contentful-paint-node].displayValue"
         }
+      ],
+      "lighthouse-core/lib/i18n/i18n.js | columnElement": [
+        "audits[largest-contentful-paint-node].details.headings[0].text",
+        "audits[dom-size].details.headings[1].text"
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"
@@ -6663,9 +6682,6 @@
       ],
       "lighthouse-core/audits/dobetterweb/dom-size.js | columnStatistic": [
         "audits[dom-size].details.headings[0].text"
-      ],
-      "lighthouse-core/lib/i18n/i18n.js | columnElement": [
-        "audits[dom-size].details.headings[1].text"
       ],
       "lighthouse-core/audits/dobetterweb/dom-size.js | columnValue": [
         "audits[dom-size].details.headings[2].text"
