@@ -5,15 +5,15 @@
  */
 'use strict';
 
-const LargestContentfulPaintNodeAudit =
-  require('../../audits/largest-contentful-paint-node.js');
+const LargestContentfulPaintElementAudit =
+  require('../../audits/largest-contentful-paint-element.js');
 
 /* eslint-env jest */
-describe('Performance: largest-contentful-paint-node audit', () => {
+describe('Performance: largest-contentful-paint-element audit', () => {
   it('correctly surfaces the LCP node', async () => {
     const artifacts = {
-      TraceNodes: [{
-        metricTag: 'largest-contentful-paint',
+      TraceElements: [{
+        metricName: 'largest-contentful-paint',
         nodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
         selector: 'div.l-header > div.chorus-emc__content',
         nodeLabel: 'My Test Label',
@@ -21,7 +21,7 @@ describe('Performance: largest-contentful-paint-node audit', () => {
       }],
     };
 
-    const auditResult = await LargestContentfulPaintNodeAudit.audit(artifacts);
+    const auditResult = await LargestContentfulPaintElementAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
     expect(auditResult.displayValue).toBeDisplayString('1 element found');
     expect(auditResult.details.items).toHaveLength(1);
@@ -32,10 +32,10 @@ describe('Performance: largest-contentful-paint-node audit', () => {
 
   it('doesn\'t throw an error when there is nothing to show', async () => {
     const artifacts = {
-      TraceNodes: [],
+      TraceElements: [],
     };
 
-    const auditResult = await LargestContentfulPaintNodeAudit.audit(artifacts);
+    const auditResult = await LargestContentfulPaintElementAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
     expect(auditResult.displayValue).toBeDisplayString('0 elements found');
     expect(auditResult.details.items).toHaveLength(0);

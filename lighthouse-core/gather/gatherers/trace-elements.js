@@ -19,14 +19,14 @@ const LH_ATTRIBUTE_MARKER = 'lhtemp';
 
 /**
  * @param {string} attributeMarker
- * @return {LH.Artifacts['TraceNodes']}
+ * @return {LH.Artifacts['TraceElements']}
  */
 /* istanbul ignore next */
-function collectTraceNodes(attributeMarker) {
+function collectTraceElements(attributeMarker) {
   /** @type {Array<HTMLElement>} */
   // @ts-ignore - put into scope via stringification
   const markedElements = getElementsInDocument('[' + attributeMarker + ']'); // eslint-disable-line no-undef
-  /** @type {LH.Artifacts['TraceNodes']} */
+  /** @type {LH.Artifacts['TraceElements']} */
   const traceNodes = [];
   for (const element of markedElements) {
     const metricTag = element.getAttribute(attributeMarker) || '';
@@ -47,7 +47,7 @@ function collectTraceNodes(attributeMarker) {
   return traceNodes;
 }
 
-class TraceNodes extends Gatherer {
+class TraceElements extends Gatherer {
   /**
    * @param {LH.TraceEvent | undefined} lcpEvent
    * @return {number | undefined}
@@ -60,7 +60,7 @@ class TraceNodes extends Gatherer {
   /**
    * @param {LH.Gatherer.PassContext} passContext
    * @param {LH.Gatherer.LoadData} loadData
-   * @return {Promise<LH.Artifacts['TraceNodes']>}
+   * @return {Promise<LH.Artifacts['TraceElements']>}
    */
   async afterPass(passContext, loadData) {
     const driver = passContext.driver;
@@ -72,7 +72,7 @@ class TraceNodes extends Gatherer {
     /** @type {Array<number>} */
     const backendNodeIds = [];
 
-    const lcpNodeId = TraceNodes.getNodeIDFromTraceEvent(lcpEvent);
+    const lcpNodeId = TraceElements.getNodeIDFromTraceEvent(lcpEvent);
     if (lcpNodeId) {
       backendNodeIds.push(lcpNodeId);
     }
@@ -95,11 +95,11 @@ class TraceNodes extends Gatherer {
       ${pageFunctions.getNodeLabelString};
       ${pageFunctions.getOuterHTMLSnippetString};
 
-      return (${collectTraceNodes})('${LH_ATTRIBUTE_MARKER}');
+      return (${collectTraceElements})('${LH_ATTRIBUTE_MARKER}');
     })()`;
 
     return driver.evaluateAsync(expression, {useIsolation: true});
   }
 }
 
-module.exports = TraceNodes;
+module.exports = TraceElements;

@@ -141,7 +141,7 @@ declare global {
       /** Information about tap targets including their position and size. */
       TapTargets: Artifacts.TapTarget[];
       /**  */
-      TraceNodes: Artifacts.TraceNode[];
+      TraceElements: Artifacts.TraceElement[];
     }
 
     module Artifacts {
@@ -463,8 +463,8 @@ declare global {
         clientRects: Rect[];
       }
 
-      export interface TraceNode {
-        metricTag: string;
+      export interface TraceElement {
+        metricName: string;
         selector: string;
         nodeLabel?: string;
         nodePath: string;

@@ -23,17 +23,17 @@ const UIStrings = {
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
-class LargestContentfulPaintNode extends Audit {
+class LargestContentfulPaintElement extends Audit {
   /**
    * @return {LH.Audit.Meta}
    */
   static get meta() {
     return {
-      id: 'largest-contentful-paint-node',
+      id: 'largest-contentful-paint-element',
       title: str_(UIStrings.title),
       description: str_(UIStrings.description),
       scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
-      requiredArtifacts: ['TraceNodes'],
+      requiredArtifacts: ['TraceElements'],
     };
   }
 
@@ -42,17 +42,17 @@ class LargestContentfulPaintNode extends Audit {
    * @return {LH.Audit.Product}
    */
   static audit(artifacts) {
-    const lcpNode =
-      artifacts.TraceNodes.find(node => node.metricTag === 'largest-contentful-paint');
-    const lcpNodeDetails = [];
-    if (lcpNode) {
-      lcpNodeDetails.push({
+    const lcpElement =
+      artifacts.TraceElements.find(node => node.metricName === 'largest-contentful-paint');
+    const lcpElementDetails = [];
+    if (lcpElement) {
+      lcpElementDetails.push({
         node: /** @type {LH.Audit.Details.NodeValue} */ ({
           type: 'node',
-          path: lcpNode.nodePath,
-          selector: lcpNode.selector,
-          nodeLabel: lcpNode.nodeLabel,
-          snippet: lcpNode.snippet,
+          path: lcpElement.nodePath,
+          selector: lcpElement.selector,
+          nodeLabel: lcpElement.nodeLabel,
+          snippet: lcpElement.snippet,
         }),
       });
     }
@@ -62,9 +62,9 @@ class LargestContentfulPaintNode extends Audit {
       {key: 'node', itemType: 'node', text: str_(i18n.UIStrings.columnElement)},
     ];
 
-    const details = Audit.makeTableDetails(headings, lcpNodeDetails);
+    const details = Audit.makeTableDetails(headings, lcpElementDetails);
 
-    const displayValue = str_(UIStrings.displayValue, {itemCount: lcpNodeDetails.length});
+    const displayValue = str_(UIStrings.displayValue, {itemCount: lcpElementDetails.length});
 
     return {
       score: 1,
@@ -74,5 +74,5 @@ class LargestContentfulPaintNode extends Audit {
   }
 }
 
-module.exports = LargestContentfulPaintNode;
+module.exports = LargestContentfulPaintElement;
 module.exports.UIStrings = UIStrings;

@@ -151,7 +151,7 @@ const defaultConfig = {
       'seo/robots-txt',
       'seo/tap-targets',
       'accessibility',
-      'trace-nodes',
+      'trace-elements',
     ],
   },
   {
@@ -223,7 +223,7 @@ const defaultConfig = {
     'timing-budget',
     'resource-summary',
     'third-party-summary',
-    'largest-contentful-paint-node',
+    'largest-contentful-paint-element',
     'manual/pwa-cross-browser',
     'manual/pwa-page-transitions',
     'manual/pwa-each-page-has-url',
@@ -430,7 +430,7 @@ const defaultConfig = {
         {id: 'timing-budget', weight: 0, group: 'budgets'},
         {id: 'resource-summary', weight: 0, group: 'diagnostics'},
         {id: 'third-party-summary', weight: 0, group: 'diagnostics'},
-        {id: 'largest-contentful-paint-node', weight: 0, group: 'diagnostics'},
+        {id: 'largest-contentful-paint-element', weight: 0, group: 'diagnostics'},
         // Audits past this point don't belong to a group and will not be shown automatically
         {id: 'network-requests', weight: 0},
         {id: 'network-rtt', weight: 0},

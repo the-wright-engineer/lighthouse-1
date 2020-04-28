@@ -136,7 +136,7 @@ module.exports = [
             ],
           },
         },
-        'largest-contentful-paint-node': {
+        'largest-contentful-paint-element': {
           score: null,
           displayValue: '1 element found',
           details: {

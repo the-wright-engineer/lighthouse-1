@@ -2083,9 +2083,9 @@
       "href": ""
     }
   ],
-  "TraceNodes": [
+  "TraceElements": [
     {
-      "metricTag": "largest-contentful-paint",
+      "metricName": "largest-contentful-paint",
       "nodePath": "1,HTML,1,BODY,0,DIV,1,P",
       "selector": "body > div > p",
       "nodeLabel": "This domain is for use in illustrative examples in documents. You may use this …"
