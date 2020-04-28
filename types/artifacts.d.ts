@@ -111,7 +111,7 @@ declare global {
       /** Information on poorly sized font usage and the text affected by it. */
       FontSize: Artifacts.FontSize;
       /** Information */
-      Issues: any[];
+      Issues: Crdp.Audits.IssueAddedEvent[];
       /** The page's document body innerText if loaded with JavaScript disabled. */
       HTMLWithoutJavaScript: {bodyText: string, hasNoScript: boolean};
       /** Whether the page ended up on an HTTPS page after attempting to load the HTTP version. */
