@@ -27,13 +27,13 @@ function collectTraceElements(attributeMarker) {
   // @ts-ignore - put into scope via stringification
   const markedElements = getElementsInDocument('[' + attributeMarker + ']'); // eslint-disable-line no-undef
   /** @type {LH.Artifacts['TraceElements']} */
-  const traceNodes = [];
+  const TraceElements = [];
   for (const element of markedElements) {
-    const metricTag = element.getAttribute(attributeMarker) || '';
+    const metricName = element.getAttribute(attributeMarker) || '';
     element.removeAttribute(attributeMarker);
     // @ts-ignore - put into scope via stringification
-    traceNodes.push({
-      metricTag,
+    TraceElements.push({
+      metricName,
       // @ts-ignore - put into scope via stringification
       nodePath: getNodePath(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification
@@ -44,7 +44,7 @@ function collectTraceElements(attributeMarker) {
       snippet: getOuterHTMLSnippet(element), // eslint-disable-line no-undef
     });
   }
-  return traceNodes;
+  return TraceElements;
 }
 
 class TraceElements extends Gatherer {
