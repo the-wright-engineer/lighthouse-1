@@ -1710,8 +1710,8 @@
         }
       }
     },
-    "largest-contentful-paint-node": {
-      "id": "largest-contentful-paint-node",
+    "largest-contentful-paint-element": {
+      "id": "largest-contentful-paint-element",
       "title": "Largest Contentful Paint element",
       "description": "This is the element that was identified as the Largest Contentful Paint. [Learn More](https://web.dev/lighthouse-largest-contentful-paint)",
       "score": null,
@@ -3906,7 +3906,7 @@
           "group": "diagnostics"
         },
         {
-          "id": "largest-contentful-paint-node",
+          "id": "largest-contentful-paint-element",
           "weight": 0,
           "group": "diagnostics"
         },
@@ -5035,7 +5035,7 @@
       },
       {
         "startTime": 0,
-        "name": "lh:audit:largest-contentful-paint-node",
+        "name": "lh:audit:largest-contentful-paint-element",
         "duration": 100,
         "entryType": "measure"
       },
@@ -6216,22 +6216,22 @@
       "lighthouse-core/audits/third-party-summary.js | columnBlockingTime": [
         "audits[third-party-summary].details.headings[2].text"
       ],
-      "lighthouse-core/audits/largest-contentful-paint-node.js | title": [
-        "audits[largest-contentful-paint-node].title"
+      "lighthouse-core/audits/largest-contentful-paint-element.js | title": [
+        "audits[largest-contentful-paint-element].title"
       ],
-      "lighthouse-core/audits/largest-contentful-paint-node.js | description": [
-        "audits[largest-contentful-paint-node].description"
+      "lighthouse-core/audits/largest-contentful-paint-element.js | description": [
+        "audits[largest-contentful-paint-element].description"
       ],
-      "lighthouse-core/audits/largest-contentful-paint-node.js | displayValue": [
+      "lighthouse-core/audits/largest-contentful-paint-element.js | displayValue": [
         {
           "values": {
             "itemCount": 1
           },
-          "path": "audits[largest-contentful-paint-node].displayValue"
+          "path": "audits[largest-contentful-paint-element].displayValue"
         }
       ],
       "lighthouse-core/lib/i18n/i18n.js | columnElement": [
-        "audits[largest-contentful-paint-node].details.headings[0].text",
+        "audits[largest-contentful-paint-element].details.headings[0].text",
         "audits[dom-size].details.headings[1].text"
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
