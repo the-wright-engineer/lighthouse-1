@@ -114,8 +114,8 @@ declare global {
       HTMLWithoutJavaScript: {bodyText: string, hasNoScript: boolean};
       /** Whether the page ended up on an HTTPS page after attempting to load the HTTP version. */
       HTTPRedirect: {value: boolean};
-      /** JS coverage information for code used during page load. */
-      JsUsage: Crdp.Profiler.ScriptCoverage[];
+      /** JS coverage information for code used during page load. Keyed by URL. */
+      JsUsage: Record<string, Crdp.Profiler.ScriptCoverage[]>;
       /** Parsed version of the page's Web App Manifest, or null if none found. */
       Manifest: Artifacts.Manifest | null;
       /** The URL loaded with interception */
@@ -166,6 +166,8 @@ declare global {
           failureSummary?: string;
           nodeLabel?: string;
         }>;
+        // When rules error they set these properties
+        // https://github.com/dequelabs/axe-core/blob/eeff122c2de11dd690fbad0e50ba2fdb244b50e8/lib/core/base/audit.js#L684-L693
         error?: RuleExecutionError;
       }
 
@@ -272,7 +274,7 @@ declare global {
         /** An optional name of the generated code (the bundled code that was the result of this build process) that this source map is associated with. */
         file?: string
         /**
-         * An optional array of maps that are associated with an offset into the generated code. 
+         * An optional array of maps that are associated with an offset into the generated code.
          * `map` is optional because the spec defines that either `url` or `map` must be defined.
          * We explicitly only support `map` here.
         */
@@ -306,6 +308,7 @@ declare global {
         script: ScriptElement;
         map: TextSourceMap;
         sizes: {
+          // TODO(cjamcl): Rename to `sources`.
           files: Record<string, number>;
           unmappedBytes: number;
           totalBytes: number;
