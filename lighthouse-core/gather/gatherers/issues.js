@@ -49,7 +49,7 @@ class Issues extends Gatherer {
       return {
         code: event.issue.code,
         details: event.issue.details,
-      }
+      };
     });
   }
 }
