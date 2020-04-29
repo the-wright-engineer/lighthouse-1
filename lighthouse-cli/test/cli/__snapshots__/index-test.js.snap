@@ -151,7 +151,7 @@ Object {
       "path": "third-party-summary",
     },
     Object {
-      "path": "lcp-node",
+      "path": "largest-contentful-paint-element",
     },
     Object {
       "path": "manual/pwa-cross-browser",
@@ -938,7 +938,7 @@ Object {
         },
         Object {
           "group": "diagnostics",
-          "id": "lcp-node",
+          "id": "largest-contentful-paint-element",
           "weight": 0,
         },
         Object {
@@ -1291,7 +1291,7 @@ Object {
           "path": "accessibility",
         },
         Object {
-          "path": "trace-nodes",
+          "path": "trace-elements",
         },
       ],
       "loadFailureMode": "fatal",

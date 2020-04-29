@@ -14,7 +14,7 @@ describe('Performance: largest-contentful-paint-element audit', () => {
     const artifacts = {
       TraceElements: [{
         metricName: 'largest-contentful-paint',
-        nodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
+        devtoolsNodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
         selector: 'div.l-header > div.chorus-emc__content',
         nodeLabel: 'My Test Label',
         snippet: '<h1 class="test-class">',

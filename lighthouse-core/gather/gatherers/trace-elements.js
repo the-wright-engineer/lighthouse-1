@@ -35,7 +35,7 @@ function collectTraceElements(attributeMarker) {
     TraceElements.push({
       metricName,
       // @ts-ignore - put into scope via stringification
-      nodePath: getNodePath(element), // eslint-disable-line no-undef
+      devtoolsNodePath: getNodePath(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification
       selector: getNodeSelector(element), // eslint-disable-line no-undef
       // @ts-ignore - put into scope via stringification

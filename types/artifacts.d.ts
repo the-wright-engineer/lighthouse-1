@@ -470,7 +470,7 @@ declare global {
         metricName: string;
         selector: string;
         nodeLabel?: string;
-        nodePath: string;
+        devtoolsNodePath: string;
         snippet?: string;
       }
 
