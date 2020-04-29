@@ -110,8 +110,8 @@ declare global {
       Fonts: Artifacts.Font[];
       /** Information on poorly sized font usage and the text affected by it. */
       FontSize: Artifacts.FontSize;
-      /** Information */
-      Issues: Crdp.Audits.IssueAddedEvent[];
+      /** The issues surfaced in the devtools Issues panel */
+      Issues: Artifacts.Issue[];
       /** The page's document body innerText if loaded with JavaScript disabled. */
       HTMLWithoutJavaScript: {bodyText: string, hasNoScript: boolean};
       /** Whether the page ended up on an HTTPS page after attempting to load the HTTP version. */
@@ -472,7 +472,8 @@ declare global {
       }
 
       export interface Issue {
-        type: Crdp.Audits.InspectorIssue
+        code: Crdp.Audits.InspectorIssueCode;
+        details: Crdp.Audits.InspectorIssueDetails;
       }
 
       // Computed artifact types below.

@@ -45,7 +45,12 @@ class Issues extends Gatherer {
 
     driver.off('Audits.issueAdded', this._onIssueAdded);
     await driver.sendCommand('Audits.disable');
-    return this._issues;
+    return this._issues.map(function(event) {
+      return {
+        code: event.issue.code,
+        details: event.issue.details,
+      }
+    });
   }
 }
 
