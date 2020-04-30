@@ -1282,6 +1282,9 @@ Object {
         Object {
           "path": "accessibility",
         },
+        Object {
+          "path": "inspector-issues",
+        },
       ],
       "loadFailureMode": "fatal",
       "networkQuietThresholdMs": 1000,

@@ -12,10 +12,10 @@
 
 const Gatherer = require('./gatherer.js');
 
-class Issues extends Gatherer {
+class InspectorIssues extends Gatherer {
   constructor() {
     super();
-    /** @type {Array<LH.Crdp.Audits.IssueAddedEvent>} */
+    /** @type {Array<LH.Crdp.Audits.InspectorIssue>} */
     this._issues = [];
     this._onIssueAdded = this.onIssueAdded.bind(this);
   }
@@ -24,7 +24,7 @@ class Issues extends Gatherer {
    * @param {LH.Crdp.Audits.IssueAddedEvent} entry
    */
   onIssueAdded(entry) {
-    this._issues.push(entry);
+    this._issues.push(entry.issue);
   }
 
   /**
@@ -38,20 +38,27 @@ class Issues extends Gatherer {
 
   /**
    * @param {LH.Gatherer.PassContext} passContext
-   * @return {Promise<LH.Artifacts['Issues']>}
+   * @return {Promise<LH.Artifacts['InspectorIssues']>}
    */
   async afterPass(passContext) {
     const driver = passContext.driver;
 
     driver.off('Audits.issueAdded', this._onIssueAdded);
     await driver.sendCommand('Audits.disable');
-    return this._issues.map(function(event) {
-      return {
-        code: event.issue.code,
-        details: event.issue.details,
-      };
-    });
+    /** @type {Array<LH.Crdp.Audits.MixedContentIssueDetails>} */
+    const mixedContentIssues = [];
+    this._issues
+      .filter(issue => issue.code === 'MixedContentIssue')
+      .forEach(issue => {
+        if (issue.details.mixedContentIssueDetails) {
+          mixedContentIssues.push(issue.details.mixedContentIssueDetails);
+        }
+      });
+
+    return {
+      mixedContentIssues,
+    };
   }
 }
 
-module.exports = Issues;
+module.exports = InspectorIssues;

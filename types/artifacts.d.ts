@@ -111,7 +111,7 @@ declare global {
       /** Information on poorly sized font usage and the text affected by it. */
       FontSize: Artifacts.FontSize;
       /** The issues surfaced in the devtools Issues panel */
-      Issues: Artifacts.Issue[];
+      InspectorIssues: Artifacts.InspectorIssues;
       /** The page's document body innerText if loaded with JavaScript disabled. */
       HTMLWithoutJavaScript: {bodyText: string, hasNoScript: boolean};
       /** Whether the page ended up on an HTTPS page after attempting to load the HTTP version. */
@@ -471,7 +471,11 @@ declare global {
         devicePixelRatio: number;
       }
 
-      export interface Issue {
+      export interface InspectorIssues {
+        mixedContentIssues: Crdp.Audits.MixedContentIssueDetails[];
+      }
+
+      export interface InspectorIssue {
         code: Crdp.Audits.InspectorIssueCode;
         details: Crdp.Audits.InspectorIssueDetails;
       }
