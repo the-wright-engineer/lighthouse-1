@@ -40,7 +40,7 @@ class CLSNodes extends Audit {
    * @return {LH.Audit.Details.Table['items']}
    */
   static getCLSNodeData(traceNodes) {
-    const clsNodes = traceNodes.filter(node => node.metricName === 'cls');
+    const clsNodes = traceNodes.filter(node => node.metricName === 'cumulative-layout-shift');
     return clsNodes.map(node => {
       return {
         node: /** @type {LH.Audit.Details.NodeValue} */ ({
