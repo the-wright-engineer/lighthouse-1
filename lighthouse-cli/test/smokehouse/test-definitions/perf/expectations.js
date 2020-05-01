@@ -170,4 +170,35 @@ module.exports = [
       },
     },
   },
+  {
+    lhr: {
+      requestedUrl: 'http://localhost:10200/perf/trace-nodes.html',
+      finalUrl: 'http://localhost:10200/perf/trace-nodes.html',
+      audits: {
+        'lcp-node': {
+          score: null,
+          displayValue: '1 element found',
+          details: {
+            items: [
+              {
+                node: {
+                  type: 'node',
+                  nodeLabel: 'Please don\'t move me',
+                },
+              },
+            ],
+          },
+        },
+        'cls-nodes': {
+          score: null,
+          displayValue: '1 element found',
+          details: {
+            items: {
+              length: 1,
+            },
+          },
+        },
+      },
+    },
+  },
 ];

@@ -8,6 +8,11 @@
 const Gatherer = require('./gatherer.js');
 const pageFunctions = require('../../lib/page-functions.js');
 const TraceProcessor = require('../../lib/tracehouse/trace-processor.js');
+const {
+  addRectTopAndBottom,
+  getRectOverlapArea,
+  getRectArea,
+} = require('../../lib/rect-helpers.js');
 
 const LH_ATTRIBUTE_MARKER = 'lhtemp';
 
@@ -49,12 +54,68 @@ function collectTraceElements(attributeMarker) {
 
 class TraceElements extends Gatherer {
   /**
-   * @param {LH.TraceEvent | undefined} lcpEvent
+   * @param {LH.TraceEvent | undefined} event
    * @return {number | undefined}
    */
-  static getNodeIDFromTraceEvent(lcpEvent) {
-    return lcpEvent && lcpEvent.args &&
-      lcpEvent.args.data && lcpEvent.args.data.nodeId;
+  static getNodeIDFromTraceEvent(event) {
+    return event && event.args &&
+      event.args.data && event.args.data.nodeId;
+  }
+
+  /**
+   * @param {Array<number>} rect
+   * @return {LH.Artifacts.Rect}
+   */
+  static traceRectToLHRect(rect) {
+    const rectArgs = {
+      x: rect[0],
+      y: rect[1],
+      width: rect[2],
+      height: rect[3],
+    };
+    return addRectTopAndBottom(rectArgs);
+  }
+
+  /**
+   * @param {Array<LH.TraceEvent>} mainThreadEvents 
+   * @return {Array<number>}
+   */
+  static getCLSNodesFromMainThreadEvents(mainThreadEvents) {
+    const clsPerNodeMap = new Map();
+    /** @type {Set<number>} */
+    const clsNodeIds = new Set();
+    const shiftEvents = mainThreadEvents.filter(e => e.name === 'LayoutShift').map(e => e.args && e.args.data);
+
+    shiftEvents.forEach(event => {
+      if (!event) {
+        return;
+      }
+
+      event.impacted_nodes && event.impacted_nodes.forEach(node => {
+        if (!node.node_id || !node.old_rect || !node.new_rect) {
+          return;
+        }
+
+        const oldRect = TraceElements.traceRectToLHRect(node.old_rect);
+        const newRect = TraceElements.traceRectToLHRect(node.new_rect);
+        const areaOfImpact = getRectArea(oldRect) +
+          getRectArea(newRect) - 
+          getRectOverlapArea(oldRect, newRect);
+        
+        let prevShiftTotal = 0;
+        if (clsPerNodeMap.has(node.node_id)) {
+          prevShiftTotal += clsPerNodeMap.get(node.node_id);
+        }
+        clsPerNodeMap.set(node.node_id, prevShiftTotal + areaOfImpact);
+        clsNodeIds.add(node.node_id);
+      });
+    });
+    
+    const topFive = [...clsPerNodeMap.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5).map(entry => Number(entry[0]));
+    
+    return topFive;
   }
 
   /**
@@ -67,26 +128,30 @@ class TraceElements extends Gatherer {
     if (!loadData.trace) {
       throw new Error('Trace is missing!');
     }
-    const traceOfTab = TraceProcessor.computeTraceOfTab(loadData.trace);
-    const lcpEvent = traceOfTab.largestContentfulPaintEvt;
+    const {largestContentfulPaintEvt, mainThreadEvents} = TraceProcessor.computeTraceOfTab(loadData.trace);
     /** @type {Array<number>} */
     const backendNodeIds = [];
 
-    const lcpNodeId = TraceElements.getNodeIDFromTraceEvent(lcpEvent);
+    const lcpNodeId = TraceElements.getNodeIDFromTraceEvent(largestContentfulPaintEvt);
+    const clsNodeIds = TraceElements.getCLSNodesFromMainThreadEvents(mainThreadEvents);
     if (lcpNodeId) {
       backendNodeIds.push(lcpNodeId);
     }
+    backendNodeIds.push(...clsNodeIds);
     // DOM.getDocument is necessary for pushNodesByBackendIdsToFrontend to properly retrieve nodeIds.
     await driver.sendCommand('DOM.getDocument', {depth: -1, pierce: true});
     const translatedIds = await driver.sendCommand('DOM.pushNodesByBackendIdsToFrontend',
       {backendNodeIds: backendNodeIds});
 
     // Mark the LCP element so we can find it in the page.
-    await driver.sendCommand('DOM.setAttributeValue', {
-      nodeId: translatedIds.nodeIds[0],
-      name: LH_ATTRIBUTE_MARKER,
-      value: 'largest-contentful-paint',
-    });
+    for (let i = 0; i < backendNodeIds.length; i++) {
+      const metricName = lcpNodeId === backendNodeIds[i] ? 'largest-contentful-paint' : 'cumulative-layout-shift';
+      await driver.sendCommand('DOM.setAttributeValue', {
+        nodeId: translatedIds.nodeIds[i],
+        name: 'LH_ATTRIBUTE_MARKER',
+        value: metricName,
+      });
+    }
 
     const expression = `(() => {
       ${pageFunctions.getElementsInDocumentString};

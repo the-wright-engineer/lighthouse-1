@@ -1,0 +1,15 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<body>
+  <div id="late-content"></div>
+  <h1>Please don't move me</h1>
+  <script>
+    setTimeout(() => {
+      const textEl = document.createElement('span');
+      textEl.textContent = 'Sorry!';
+      const top = document.getElementById('late-content');
+      top.appendChild(textEl);
+    }, 2000);
+  </script>
+</body>
+</html>
