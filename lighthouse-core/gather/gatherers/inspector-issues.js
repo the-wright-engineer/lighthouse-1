@@ -45,19 +45,19 @@ class InspectorIssues extends Gatherer {
 
     driver.off('Audits.issueAdded', this._onIssueAdded);
     await driver.sendCommand('Audits.disable');
-    /** @type {Array<LH.Crdp.Audits.MixedContentIssueDetails>} */
-    const mixedContentIssues = [];
-    this._issues
-      .filter(issue => issue.code === 'MixedContentIssue')
-      .forEach(issue => {
-        if (issue.details.mixedContentIssueDetails) {
-          mixedContentIssues.push(issue.details.mixedContentIssueDetails);
-        }
-      });
-
-    return {
-      mixedContentIssues,
+    const artifact = {
+      /** @type {Array<LH.Crdp.Audits.MixedContentIssueDetails>} */
+      MixedContent: [],
     };
+
+    for (const issue of this._issues) {
+      if (issue.code === 'MixedContentIssue'
+        && issue.details.mixedContentIssueDetails) {
+        artifact.MixedContent.push(issue.details.mixedContentIssueDetails);
+      }
+    }
+
+    return artifact;
   }
 }
 
