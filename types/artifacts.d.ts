@@ -475,7 +475,7 @@ declare global {
       }
 
       export interface InspectorIssues {
-        MixedContent: Crdp.Audits.MixedContentIssueDetails[];
+        mixedContent: Crdp.Audits.MixedContentIssueDetails[];
       }
 
       export interface InspectorIssue {

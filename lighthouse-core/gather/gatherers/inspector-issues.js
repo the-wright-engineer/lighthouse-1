@@ -47,13 +47,12 @@ class InspectorIssues extends Gatherer {
     await driver.sendCommand('Audits.disable');
     const artifact = {
       /** @type {Array<LH.Crdp.Audits.MixedContentIssueDetails>} */
-      MixedContent: [],
+      mixedContent: [],
     };
 
     for (const issue of this._issues) {
-      if (issue.code === 'MixedContentIssue'
-        && issue.details.mixedContentIssueDetails) {
-        artifact.MixedContent.push(issue.details.mixedContentIssueDetails);
+      if (issue.details.mixedContentIssueDetails) {
+        artifact.mixedContent.push(issue.details.mixedContentIssueDetails);
       }
     }
 
