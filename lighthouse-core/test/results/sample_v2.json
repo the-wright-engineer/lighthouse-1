@@ -1739,6 +1739,19 @@
         ]
       }
     },
+    "cumulative-layout-shift-elements": {
+      "id": "cumulative-layout-shift-elements",
+      "title": "Top Culumlative Layout Shift Elements",
+      "description": "These are the elements that contribute most to the CLS of the site.",
+      "score": null,
+      "scoreDisplayMode": "informative",
+      "displayValue": "No elements found",
+      "details": {
+        "type": "table",
+        "headings": [],
+        "items": []
+      }
+    },
     "pwa-cross-browser": {
       "id": "pwa-cross-browser",
       "title": "Site works cross-browser",
@@ -3912,6 +3925,11 @@
           "group": "diagnostics"
         },
         {
+          "id": "cumulative-layout-shift-elements",
+          "weight": 0,
+          "group": "diagnostics"
+        },
+        {
           "id": "uses-http2",
           "weight": 0,
           "group": "diagnostics"
@@ -5066,6 +5084,12 @@
       {
         "startTime": 0,
         "name": "lh:audit:largest-contentful-paint-element",
+        "duration": 100,
+        "entryType": "measure"
+      },
+      {
+        "startTime": 0,
+        "name": "lh:audit:cumulative-layout-shift-elements",
         "duration": 100,
         "entryType": "measure"
       },
@@ -6263,6 +6287,20 @@
       "lighthouse-core/lib/i18n/i18n.js | columnElement": [
         "audits[largest-contentful-paint-element].details.headings[0].text",
         "audits[dom-size].details.headings[1].text"
+      ],
+      "lighthouse-core/audits/cumulative-layout-shift-elements.js | title": [
+        "audits[cumulative-layout-shift-elements].title"
+      ],
+      "lighthouse-core/audits/cumulative-layout-shift-elements.js | description": [
+        "audits[cumulative-layout-shift-elements].description"
+      ],
+      "lighthouse-core/audits/cumulative-layout-shift-elements.js | displayValue": [
+        {
+          "values": {
+            "nodeCount": 0
+          },
+          "path": "audits[cumulative-layout-shift-elements].displayValue"
+        }
       ],
       "lighthouse-core/audits/manual/pwa-cross-browser.js | title": [
         "audits[pwa-cross-browser].title"

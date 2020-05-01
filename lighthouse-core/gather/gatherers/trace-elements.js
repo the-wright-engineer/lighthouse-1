@@ -77,14 +77,16 @@ class TraceElements extends Gatherer {
   }
 
   /**
-   * @param {Array<LH.TraceEvent>} mainThreadEvents 
+   * @param {Array<LH.TraceEvent>} mainThreadEvents
    * @return {Array<number>}
    */
-  static getCLSNodesFromMainThreadEvents(mainThreadEvents) {
+  static getCLSNodeIdsFromMainThreadEvents(mainThreadEvents) {
     const clsPerNodeMap = new Map();
     /** @type {Set<number>} */
     const clsNodeIds = new Set();
-    const shiftEvents = mainThreadEvents.filter(e => e.name === 'LayoutShift').map(e => e.args && e.args.data);
+    const shiftEvents = mainThreadEvents
+      .filter(e => e.name === 'LayoutShift')
+      .map(e => e.args && e.args.data);
 
     shiftEvents.forEach(event => {
       if (!event) {
@@ -99,9 +101,9 @@ class TraceElements extends Gatherer {
         const oldRect = TraceElements.traceRectToLHRect(node.old_rect);
         const newRect = TraceElements.traceRectToLHRect(node.new_rect);
         const areaOfImpact = getRectArea(oldRect) +
-          getRectArea(newRect) - 
+          getRectArea(newRect) -
           getRectOverlapArea(oldRect, newRect);
-        
+
         let prevShiftTotal = 0;
         if (clsPerNodeMap.has(node.node_id)) {
           prevShiftTotal += clsPerNodeMap.get(node.node_id);
@@ -110,11 +112,11 @@ class TraceElements extends Gatherer {
         clsNodeIds.add(node.node_id);
       });
     });
-    
+
     const topFive = [...clsPerNodeMap.entries()]
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5).map(entry => Number(entry[0]));
-    
+
     return topFive;
   }
 
@@ -128,12 +130,13 @@ class TraceElements extends Gatherer {
     if (!loadData.trace) {
       throw new Error('Trace is missing!');
     }
-    const {largestContentfulPaintEvt, mainThreadEvents} = TraceProcessor.computeTraceOfTab(loadData.trace);
+    const {largestContentfulPaintEvt, mainThreadEvents} =
+      TraceProcessor.computeTraceOfTab(loadData.trace);
     /** @type {Array<number>} */
     const backendNodeIds = [];
 
     const lcpNodeId = TraceElements.getNodeIDFromTraceEvent(largestContentfulPaintEvt);
-    const clsNodeIds = TraceElements.getCLSNodesFromMainThreadEvents(mainThreadEvents);
+    const clsNodeIds = TraceElements.getCLSNodeIdsFromMainThreadEvents(mainThreadEvents);
     if (lcpNodeId) {
       backendNodeIds.push(lcpNodeId);
     }
@@ -145,7 +148,8 @@ class TraceElements extends Gatherer {
 
     // Mark the LCP element so we can find it in the page.
     for (let i = 0; i < backendNodeIds.length; i++) {
-      const metricName = lcpNodeId === backendNodeIds[i] ? 'largest-contentful-paint' : 'cumulative-layout-shift';
+      const metricName =
+        lcpNodeId === backendNodeIds[i] ? 'largest-contentful-paint' : 'cumulative-layout-shift';
       await driver.sendCommand('DOM.setAttributeValue', {
         nodeId: translatedIds.nodeIds[i],
         name: LH_ATTRIBUTE_MARKER,

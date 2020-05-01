@@ -5,54 +5,55 @@
  */
 'use strict';
 
-const CLSNodesAudit = require('../../audits/cls-nodes.js');
+const CumulativeLayoutShiftElementsAudit =
+  require('../../audits/cumulative-layout-shift-elements.js');
 
 /* eslint-env jest */
 
-describe('Performance: cls-nodes audit', () => {
-  it('correctly surfaces a single CLS node', async () => {
+describe('Performance: cumulative-layout-shift-elements audit', () => {
+  it('correctly surfaces a single CLS element', async () => {
     const artifacts = {
-      TraceNodes: [{
-        metricTag: 'cls',
-        nodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
+      TraceElements: [{
+        metricName: 'cumulative-layout-shift',
+        devtoolsNodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
         selector: 'div.l-header > div.chorus-emc__content',
         nodeLabel: 'My Test Label',
         snippet: '<h1 class="test-class">',
       }],
     };
 
-    const auditResult = await CLSNodesAudit.audit(artifacts);
+    const auditResult = await CumulativeLayoutShiftElementsAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
     expect(auditResult.displayValue).toBeDisplayString('1 element found');
     expect(auditResult.details.items).toHaveLength(1);
   });
 
-  it('correctly surfaces multiple CLS nodes', async () => {
-    const clsNode = {
-      metricTag: 'cls',
-      nodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
+  it('correctly surfaces multiple CLS elements', async () => {
+    const clsElement = {
+      metricName: 'cumulative-layout-shift',
+      devtoolsNodePath: '1,HTML,3,BODY,5,DIV,0,HEADER',
       selector: 'div.l-header > div.chorus-emc__content',
       nodeLabel: 'My Test Label',
       snippet: '<h1 class="test-class">',
     };
     const artifacts = {
-      TraceNodes: Array(4).fill(clsNode),
+      TraceElements: Array(4).fill(clsElement),
     };
 
-    const auditResult = await CLSNodesAudit.audit(artifacts);
+    const auditResult = await CumulativeLayoutShiftElementsAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
     expect(auditResult.displayValue).toBeDisplayString('4 elements found');
     expect(auditResult.details.items).toHaveLength(4);
   });
 
-  it('correctly handles when there are no CLS nodes', async () => {
+  it('correctly handles when there are no CLS elements to show', async () => {
     const artifacts = {
-      TraceNodes: [],
+      TraceElements: [],
     };
 
-    const auditResult = await CLSNodesAudit.audit(artifacts);
+    const auditResult = await CumulativeLayoutShiftElementsAudit.audit(artifacts);
     expect(auditResult.score).toEqual(1);
     expect(auditResult.displayValue).toBeDisplayString('No elements found');
     expect(auditResult.details.items).toHaveLength(0);
-  })
+  });
 });

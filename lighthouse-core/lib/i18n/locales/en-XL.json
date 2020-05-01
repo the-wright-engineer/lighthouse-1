@@ -521,6 +521,15 @@
   "lighthouse-core/audits/critical-request-chains.js | title": {
     "message": "Âv́ôíd̂ ćĥáîńîńĝ ćr̂ít̂íĉál̂ ŕêq́ûéŝt́ŝ"
   },
+  "lighthouse-core/audits/cumulative-layout-shift-elements.js | description": {
+    "message": "T̂h́êśê ár̂é t̂h́ê él̂ém̂én̂t́ŝ t́ĥát̂ ćôńt̂ŕîb́ût́ê ḿôśt̂ t́ô t́ĥé ĈĹŜ óf̂ t́ĥé ŝít̂é."
+  },
+  "lighthouse-core/audits/cumulative-layout-shift-elements.js | displayValue": {
+    "message": "{nodeCount, plural,\n    =0 {N̂ó êĺêḿêńt̂ś f̂óûńd̂}\n    =1 {1 él̂ém̂én̂t́ f̂óûńd̂}\n    other {# él̂ém̂én̂t́ŝ f́ôún̂d́}\n    }"
+  },
+  "lighthouse-core/audits/cumulative-layout-shift-elements.js | title": {
+    "message": "T̂óp̂ Ćûĺûḿl̂át̂ív̂é L̂áŷóût́ Ŝh́îf́t̂ Él̂ém̂én̂t́ŝ"
+  },
   "lighthouse-core/audits/deprecations.js | columnDeprecate": {
     "message": "D̂ép̂ŕêćât́îón̂ / Ẃâŕn̂ín̂ǵ"
   },

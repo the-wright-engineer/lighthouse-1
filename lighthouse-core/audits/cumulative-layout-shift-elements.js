@@ -9,25 +9,27 @@ const Audit = require('./audit.js');
 const i18n = require('../lib/i18n/i18n.js');
 
 const UIStrings = {
+  /** Descriptive title of a diagnostic audit that provides up to the top five elements contributing to Cumulative Layout Shift. */
   title: 'Top Culumlative Layout Shift Elements',
+  /** Description of a diagnostic audit that provides up to the top five elements contributing to Cumulative Layout Shift. */
   description: 'These are the elements that contribute most to the CLS of the site.',
+  /** [ICU Syntax] Label for the Cumulative Layout Shift Elements audit identifying how many elements were found. */
   displayValue: `{nodeCount, plural,
     =0 {No elements found}
     =1 {1 element found}
     other {# elements found}
     }`,
-  columnHeader: 'Element',
 };
 
 const str_ = i18n.createMessageInstanceIdFn(__filename, UIStrings);
 
-class CLSNodes extends Audit {
+class CumulativeLayoutShiftElements extends Audit {
   /**
    * @return {LH.Audit.Meta}
    */
   static get meta() {
     return {
-      id: 'cls-nodes',
+      id: 'cumulative-layout-shift-elements',
       title: str_(UIStrings.title),
       description: str_(UIStrings.description),
       scoreDisplayMode: Audit.SCORING_MODES.INFORMATIVE,
@@ -36,38 +38,32 @@ class CLSNodes extends Audit {
   }
 
   /**
-   * @param {LH.Artifacts.TraceElement[]} traceNodes
-   * @return {LH.Audit.Details.Table['items']}
-   */
-  static getCLSNodeData(traceNodes) {
-    const clsNodes = traceNodes.filter(node => node.metricName === 'cumulative-layout-shift');
-    return clsNodes.map(node => {
-      return {
-        node: /** @type {LH.Audit.Details.NodeValue} */ ({
-          type: 'node',
-          path: node.devtoolsNodePath,
-          selector: node.selector,
-          nodeLabel: node.nodeLabel,
-          snippet: node.snippet,
-        }),
-      }
-    });
-  }
-
-  /**
    * @param {LH.Artifacts} artifacts
    * @return {LH.Audit.Product}
    */
   static audit(artifacts) {
-    const clsNodeData = this.getCLSNodeData(artifacts.TraceElements);
+    const clsElements =
+      artifacts.TraceElements.filter(element => element.metricName === 'cumulative-layout-shift');
+
+    const clsElementData = clsElements.map(element => {
+      return {
+        node: /** @type {LH.Audit.Details.NodeValue} */ ({
+          type: 'node',
+          path: element.devtoolsNodePath,
+          selector: element.selector,
+          nodeLabel: element.nodeLabel,
+          snippet: element.snippet,
+        }),
+      };
+    });
 
     /** @type {LH.Audit.Details.Table['headings']} */
     const headings = [
-      {key: 'node', itemType: 'node', text: str_(UIStrings.columnHeader)},
+      {key: 'node', itemType: 'node', text: str_(i18n.UIStrings.columnElement)},
     ];
 
-    const details = Audit.makeTableDetails(headings, clsNodeData);
-    const displayValue = str_(UIStrings.displayValue, {nodeCount: clsNodeData.length});
+    const details = Audit.makeTableDetails(headings, clsElementData);
+    const displayValue = str_(UIStrings.displayValue, {nodeCount: clsElementData.length});
 
     return {
       score: 1,
@@ -77,5 +73,5 @@ class CLSNodes extends Audit {
   }
 }
 
-module.exports = CLSNodes;
+module.exports = CumulativeLayoutShiftElements;
 module.exports.UIStrings = UIStrings;
