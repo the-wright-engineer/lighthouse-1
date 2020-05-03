@@ -136,15 +136,13 @@ class PerformanceCategoryRenderer extends CategoryRenderer {
     const keyMetrics = metricAudits.slice(0, 3);
     const otherMetrics = metricAudits.slice(3);
 
-    const metricsBoxesEl = this.dom.createChildOf(metricAuditsEl, 'div', 'lh-columns');
-    const metricsColumn1El = this.dom.createChildOf(metricsBoxesEl, 'div', 'lh-column');
-    const metricsColumn2El = this.dom.createChildOf(metricsBoxesEl, 'div', 'lh-column');
+    const metricsBoxesEl = this.dom.createChildOf(metricAuditsEl, 'div', 'lh-metrics-container');
 
     keyMetrics.forEach(item => {
-      metricsColumn1El.appendChild(this._renderMetric(item));
+      metricsBoxesEl.appendChild(this._renderMetric(item));
     });
     otherMetrics.forEach(item => {
-      metricsColumn2El.appendChild(this._renderMetric(item));
+      metricsBoxesEl.appendChild(this._renderMetric(item));
     });
 
     // 'Values are estimated and may vary' is used as the category description for PSI
