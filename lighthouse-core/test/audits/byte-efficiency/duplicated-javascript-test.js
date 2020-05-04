@@ -23,7 +23,7 @@ function load(name) {
 
 describe('DuplicatedJavascript computed artifact', () => {
   it('works (simple)', async () => {
-    const context = {computedCache: new Map(), options: {ignoreThresholdInBytes: 500}};
+    const context = {computedCache: new Map(), options: {ignoreThresholdInBytes: 200}};
     const {map, content} = load('foo.min');
     const artifacts = {
       URL: {finalUrl: 'https://example.com'},
@@ -51,11 +51,11 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/foo1.min.js",
               "https://example.com/foo2.min.js",
             ],
-            "wastedBytes": 682,
+            "wastedBytes": 224,
           },
         ],
         "wastedBytesByUrl": Map {
-          "https://example.com/foo2.min.js" => 682,
+          "https://example.com/foo2.min.js" => 224,
         },
       }
     `);
@@ -85,8 +85,8 @@ describe('DuplicatedJavascript computed artifact', () => {
           Object {
             "source": "Control/assets/js/vendor/ng/select/select.js",
             "sourceBytes": Array [
-              48513,
-              48513,
+              16009,
+              16009,
             ],
             "totalBytes": 0,
             "url": "",
@@ -94,13 +94,13 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 48513,
+            "wastedBytes": 16009,
           },
           Object {
             "source": "Control/assets/js/vendor/ng/select/angular-sanitize.js",
             "sourceBytes": Array [
-              9135,
-              9135,
+              3015,
+              3015,
             ],
             "totalBytes": 0,
             "url": "",
@@ -108,13 +108,13 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 9135,
+            "wastedBytes": 3015,
           },
           Object {
             "source": "node_modules/@babel/runtime",
             "sourceBytes": Array [
-              5467,
-              4410,
+              1804,
+              1455,
             ],
             "totalBytes": 0,
             "url": "",
@@ -122,27 +122,13 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 4410,
-          },
-          Object {
-            "source": "js/src/utils/service/amplitude-service.ts",
-            "sourceBytes": Array [
-              1348,
-              1325,
-            ],
-            "totalBytes": 0,
-            "url": "",
-            "urls": Array [
-              "https://example.com/coursehero-bundle-1.js",
-              "https://example.com/coursehero-bundle-2.js",
-            ],
-            "wastedBytes": 1325,
+            "wastedBytes": 1455,
           },
           Object {
             "source": "js/src/search/results/store/filter-store.ts",
             "sourceBytes": Array [
-              12717,
-              12650,
+              4197,
+              4175,
             ],
             "totalBytes": 0,
             "url": "",
@@ -150,27 +136,13 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 12650,
-          },
-          Object {
-            "source": "js/src/search/results/view/filter/autocomplete-list.tsx",
-            "sourceBytes": Array [
-              1143,
-              1134,
-            ],
-            "totalBytes": 0,
-            "url": "",
-            "urls": Array [
-              "https://example.com/coursehero-bundle-2.js",
-              "https://example.com/coursehero-bundle-1.js",
-            ],
-            "wastedBytes": 1134,
+            "wastedBytes": 4175,
           },
           Object {
             "source": "js/src/search/results/view/filter/autocomplete-filter.tsx",
             "sourceBytes": Array [
-              3823,
-              3812,
+              1262,
+              1258,
             ],
             "totalBytes": 0,
             "url": "",
@@ -178,27 +150,13 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 3812,
-          },
-          Object {
-            "source": "js/src/search/results/view/filter/autocomplete-filter-with-icon.tsx",
-            "sourceBytes": Array [
-              2696,
-              2693,
-            ],
-            "totalBytes": 0,
-            "url": "",
-            "urls": Array [
-              "https://example.com/coursehero-bundle-1.js",
-              "https://example.com/coursehero-bundle-2.js",
-            ],
-            "wastedBytes": 2693,
+            "wastedBytes": 1258,
           },
           Object {
             "source": "js/src/common/component/school-search.tsx",
             "sourceBytes": Array [
-              5840,
-              5316,
+              1927,
+              1754,
             ],
             "totalBytes": 0,
             "url": "",
@@ -206,35 +164,7 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-2.js",
               "https://example.com/coursehero-bundle-1.js",
             ],
-            "wastedBytes": 5316,
-          },
-          Object {
-            "source": "js/src/common/component/search/abstract-taxonomy-search.tsx",
-            "sourceBytes": Array [
-              3103,
-              3098,
-            ],
-            "totalBytes": 0,
-            "url": "",
-            "urls": Array [
-              "https://example.com/coursehero-bundle-1.js",
-              "https://example.com/coursehero-bundle-2.js",
-            ],
-            "wastedBytes": 3098,
-          },
-          Object {
-            "source": "node_modules/lodash-es",
-            "sourceBytes": Array [
-              1751,
-              1708,
-            ],
-            "totalBytes": 0,
-            "url": "",
-            "urls": Array [
-              "https://example.com/coursehero-bundle-2.js",
-              "https://example.com/coursehero-bundle-1.js",
-            ],
-            "wastedBytes": 1708,
+            "wastedBytes": 1754,
           },
           Object {
             "source": "Other",
@@ -245,12 +175,12 @@ describe('DuplicatedJavascript computed artifact', () => {
               "https://example.com/coursehero-bundle-1.js",
               "https://example.com/coursehero-bundle-2.js",
             ],
-            "wastedBytes": 4460,
+            "wastedBytes": 4759,
           },
         ],
         "wastedBytesByUrl": Map {
-          "https://example.com/coursehero-bundle-2.js" => 88606,
-          "https://example.com/coursehero-bundle-1.js" => 9648,
+          "https://example.com/coursehero-bundle-2.js" => 29241,
+          "https://example.com/coursehero-bundle-1.js" => 3184,
         },
       }
     `);
